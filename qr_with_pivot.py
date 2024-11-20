@@ -2,16 +2,18 @@ from gen_rank_def import genRankDef
 from scipy.linalg import qr
 
 def driver():
-    mMin = 3
-    mMax = 8
+    mMin = 50
+    mMax = 50
 
-    nMin = 9
-    nMax = 16
+    nMin = 50
+    nMax = 50
 
     minVal = -20
     maxVal = 20
 
-    A = genRankDef(mMin, mMax, nMin, nMax, minVal, maxVal)
+    numDepCols = 20
+
+    A = genRankDef(mMin, mMax, nMin, nMax, minVal, maxVal, numDepCols)
 
     print('A =', A)
 

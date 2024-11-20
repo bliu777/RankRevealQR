@@ -6,24 +6,26 @@ from numpy.linalg import inv
 from numpy.linalg import norm
 
 
-def genRankDef(mMin, mMax, nMin, nMax, minVal, maxVal):
+def genRankDef(mMin, mMax, nMin, nMax, minVal, maxVal, numDepCols):
     m = random.randrange(mMin,mMax+1)
     n = random.randrange(nMin,nMax+1)
     print('m =', m, ', n =', n)
 
     A = np.zeros((m,n))
     for i in range(m):
-        for j in range(n - 1):
+        for j in range(n - numDepCols):
             A[i,j] = random.randrange(minVal, maxVal)
 
 
-    linDepCol = np.zeros(m)
-    for i in range(n-1):
-        for j in range(m):
-            linDepCol[j] += random.randrange(-10,10) * A[j,i]
+    linDepCols = np.zeros((m,numDepCols))
+    for colNum in range(numDepCols):
+        for i in range(n-1):
+            for j in range(m):
+                linDepCols[j, colNum] += random.randrange(-10,10) * A[j,i]
 
-    for i in range(m):
-        A[i,n-1] = linDepCol[i]
+    for colNum in range(numDepCols):
+        for i in range(m):
+            A[i,n-1 - colNum] = linDepCols[i, colNum]
 
     print("A =", A)
 
