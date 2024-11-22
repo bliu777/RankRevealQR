@@ -3,6 +3,7 @@ import numpy as np
 import scipy.linalg as linalg
 from gen_rank_def import genRankDef 
 import math
+from scipy.signal import ShortTimeFFT
 
 '''A=np.array(([1,4,1,5,7,8,9],
            [6,2,8,9,0,1,2],
@@ -32,28 +33,28 @@ def reconstruct(Q,R,P):
     return Atemp @ linalg.inv(Pivot)
 
 
-def rrqr_iteration(eMax, numSteps, numIts):
+def rrqr_iteration(numSteps, numIts):
 
     e = np.zeros(numSteps)
     for i in range(numSteps):
         #print(-numSteps + i)
-        e[i] = eMax**(-numSteps + i)
+        e[i] = 10**(-numSteps + i + 5)
         #print(1**(-numSteps + i))
     #print(e)
 
     norms = np.zeros(numSteps)
     for it in range(numIts):
         for i in range(numSteps):
-            A = genRankDef(100, 100, 100, 100, -20, 20, 80)
+            A = genRankDef(50, 50, 50, 50, -20, 20, 45)
             Q,R,P=Parker_Compression(A,e[i])
             Anew=(reconstruct(Q,R,P))
-            norms[i] += linalg.norm(Anew-A)
+            norms[i] += linalg.norm(Anew-A, 2)
 
     for i in range(numSteps):
         norms[i] = norms[i]/numIts
 
     plt.figure()
-    plt.semilogx(e,norms, "b.-")
+    plt.loglog(e,norms, "b.-")
     plt.xlabel("e values")
     plt.ylabel("norm values")
     plt.show()
