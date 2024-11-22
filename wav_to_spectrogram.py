@@ -4,7 +4,8 @@ from scipy.signal import spectrogram
 import matplotlib.pyplot as plt
 
 
-def Spectrogram(filename):
+def wav_to_spectrogram(filename):
+    
     samples, data = wavfile.read(filename)
 
     if data.ndim == 2:
