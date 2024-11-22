@@ -9,18 +9,24 @@ from wav_to_spectrogram import *
 
 spect, phase, samples = wav_to_spectrogram("test_file.wav")
 
+Q, R, P = Parker_Compression(spect, 1000)
+
+# Anew = reconstruct(Q, R, P)
+
+
 ranks = []
+xvals = [i for i in range(1, 2000, 20)]
 
 for eps in range(1, 2000, 20):
     Qnew, Rnew, P = Parker_Compression(spect, e=eps)
     rank = Qnew.shape[1]
-    print(rank)
     ranks.append(rank)
 
-plt.plot(range(1, 2000, 20), ranks)
+plt.semilogx(xvals, ranks)
+plt.title("Rank of Q for different ε")
+plt.xlabel("ε")
+plt.ylabel("Rank of Q")
 plt.show()
-
-# Anew = reconstruct(Qnew, Rnew, P)
 
 # print(f"Reconstruction shape: {Anew.shape}")
 
