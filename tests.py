@@ -35,3 +35,7 @@ plt.show()
 # print(f"Norm of diff: {norm}")
 
 # spectrogram_to_wav(Anew, phase, samples)
+
+# print(norm)
+
+rrqr_iteration(8, 50)
