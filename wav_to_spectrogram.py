@@ -1,6 +1,6 @@
 import numpy as np
 from scipy.io import wavfile
-from scipy.signal import spectrogram
+from scipy.signal import stft
 from scipy.signal import istft
 from scipy.io.wavfile import write
 from librosa import griffinlim
@@ -14,24 +14,24 @@ def wav_to_spectrogram(filename):
     if data.ndim == 2:
         data = np.mean(data, axis=1)
 
-        frequencies, times, Sxx = spectrogram(data, samples, nperseg=1024, noverlap=512)
+    frequencies, times, Sxx = stft(data, fs=samples, nperseg=1024, noverlap=512)
 
-        Sxx_log = 10 * np.log10(Sxx + 1e-10)
+    spect = np.abs(Sxx)
+    phase = np.angle(Sxx)
 
-        Sxx_log -= np.max(Sxx_log) # normalization component
+    return spect, phase, samples
 
-    return Sxx, Sxx_log, samples
+def spectrogram_to_wav(spect, phase, samples):
 
+    Sxx_reconstructed = spect * np.exp(1j * phase)
 
-def spectrogram_to_wav_griffinlim(spect, samples):
+    _, reconstruction = istft(Sxx_reconstructed, fs=samples, nperseg=1024, noverlap=512)
 
-    spect_mag = np.sqrt(spect)
+    reconstruction = reconstruction / np.max(np.abs(reconstruction))  
 
-    reconstructed_signal = griffinlim(spect_mag, n_iter=32, hop_length=512, win_length=1024)
-    
-    reconstructed_signal = np.int16(reconstructed_signal / np.max(np.abs(reconstructed_signal)) * 32767)
-    
-    if os.path.exists("griffinlim_reconstruction.wav"): 
-        os.remove("griffinlim_reconstruction.wav")
+    reconstruction = np.int16(reconstruction * 32767)
 
-    write("griffinlim_reconstruction.wav", samples, reconstructed_signal)
+    if os.path.exists("reconstruction.wav"): 
+        os.remove("reconstruction.wav")
+
+    write("reconstruction.wav", samples, reconstruction)
