@@ -24,3 +24,5 @@ diff = A - Anew
 norm = linalg.norm(diff)
 
 # print(norm)
+
+rrqr_iteration(8, 50)
