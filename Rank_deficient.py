@@ -59,4 +59,5 @@ def rrqr_iteration(eMax, numSteps, numIts):
     plt.show()
     return (norms, e)
 
-rrqr_iteration(10, 10, 10)
+# rrqr_iteration(10, 10, 10)
+

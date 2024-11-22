@@ -27,7 +27,4 @@ def driver():
     print('Q =', Q)
     print('R =', R)
 
-
-#def gen_pivot():
-
 driver()

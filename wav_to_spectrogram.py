@@ -15,4 +15,6 @@ def wav_to_spectrogram(filename):
 
         Sxx_log = 10 * np.log10(Sxx + 1e-10)
 
+        Sxx_log -= np.max(Sxx_log) # normalization component
+
     return Sxx, Sxx_log
