@@ -1,0 +1,1 @@
+This repository contains all materials related to the rank-revealing QR factorization project in APPM 4600 by Byron Liu, William Vasilas, and John Mathews.

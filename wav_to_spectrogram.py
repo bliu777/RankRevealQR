@@ -3,7 +3,6 @@ from scipy.io import wavfile
 from scipy.signal import stft
 from scipy.signal import istft
 from scipy.io.wavfile import write
-from librosa import griffinlim
 import os
 
 
@@ -34,4 +33,4 @@ def spectrogram_to_wav(spect, phase, samples):
     if os.path.exists("reconstruction.wav"): 
         os.remove("reconstruction.wav")
 
-    write("reconstruction.wav", samples, reconstruction)
+    write("reconstruction_ε=1000.wav", samples, reconstruction)
