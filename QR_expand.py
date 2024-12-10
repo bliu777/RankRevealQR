@@ -60,11 +60,11 @@ def parkerQexpand(Q,It=0):
 def parkerRexpand(R,Q):
     mhat,nhat=Q.shape
     m,n=R.shape
-    R22=np.zeros((n-mhat+1,n))
+    R22=np.zeros((n-nhat+1,n))
     Rstar=np.vstack((R,R22))
 
-    for i in range(n-mhat+1,n-1):
-        for j in range(i,n-1):
+    for i in range(n-nhat,n):
+        for j in range(i,n):
             a=Rstar[i-1,j-1]
             Rstar[i,j] =random.uniform(-a,a)
     return Rstar
