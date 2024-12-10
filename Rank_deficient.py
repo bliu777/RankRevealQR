@@ -3,7 +3,6 @@ import numpy as np
 import scipy.linalg as linalg
 from gen_rank_def import genRankDef 
 import math
-from scipy.signal import ShortTimeFFT
 
 '''A=np.array(([1,4,1,5,7,8,9],
            [6,2,8,9,0,1,2],

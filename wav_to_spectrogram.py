@@ -1,4 +1,5 @@
 import numpy as np
+import matplotlib.pyplot as plt
 from scipy.io import wavfile
 from scipy.signal import stft
 from scipy.signal import istft
@@ -18,7 +19,7 @@ def wav_to_spectrogram(filename):
     spect = np.abs(Sxx)
     phase = np.angle(Sxx)
 
-    return spect, phase, samples
+    return spect, phase, samples, frequencies, times
 
 def spectrogram_to_wav(spect, phase, samples):
 
@@ -33,4 +34,16 @@ def spectrogram_to_wav(spect, phase, samples):
     if os.path.exists("reconstruction.wav"): 
         os.remove("reconstruction.wav")
 
-    write("reconstruction_ε=1000.wav", samples, reconstruction)
+    write("expanded_reconstruction_ε=1000.wav", samples, reconstruction)
+
+def plot_spectrogram(filename):
+    spect, phase, samples, frequencies, times = wav_to_spectrogram(filename)
+
+    plt.figure(figsize=(10, 6))
+    plt.imshow(np.log(spect), aspect='auto', cmap='inferno', origin='lower', 
+               extent=[times.min(), times.max(), frequencies.min(), frequencies.max()])
+    plt.colorbar(label='Log Magnitude')
+    plt.title(f"Spectrogram Heatmap of {filename}")
+    plt.xlabel('Time (s)')
+    plt.ylabel('Frequency (Hz)')
+    plt.show()
