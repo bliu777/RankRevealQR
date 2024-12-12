@@ -9,6 +9,7 @@ import os
 
 def wav_to_spectrogram(filename):
     
+
     samples, data = wavfile.read(filename)
 
     if data.ndim == 2:
@@ -34,7 +35,7 @@ def spectrogram_to_wav(spect, phase, samples):
     if os.path.exists("reconstruction.wav"): 
         os.remove("reconstruction.wav")
 
-    write("expanded_reconstruction_ε=1000.wav", samples, reconstruction)
+    write("Purple_Rain_Compressed.wav", samples, reconstruction)
 
 def plot_spectrogram(filename):
     spect, phase, samples, frequencies, times = wav_to_spectrogram(filename)
