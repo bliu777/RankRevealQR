@@ -35,7 +35,7 @@ def spectrogram_to_wav(spect, phase, samples):
     if os.path.exists("reconstruction.wav"): 
         os.remove("reconstruction.wav")
 
-    write("Purple_Rain_Compressed.wav", samples, reconstruction)
+    write("Purple_Rain_Compressed_10.wav", samples, reconstruction)
 
 def plot_spectrogram(filename):
     spect, phase, samples, frequencies, times = wav_to_spectrogram(filename)

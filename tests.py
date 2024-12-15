@@ -10,9 +10,7 @@ from QR_expand import *
 
 spect, phase, samples, _, _ = wav_to_spectrogram("Purple_Rain_Guitar.wav")
 
-Q, R, P = Parker_Compression(spect, 100)
-
-# Arand = reconstruct(Qexpand, Rexpand, P)
+Q, R, P = Parker_Compression(spect, 10)
 
 Anew = reconstruct(Q, R, P)
 
